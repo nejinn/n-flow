@@ -1,0 +1,36 @@
+.idea
+
+flow-web/node_modules
+flow-web/.DS_Store
+flow-web/dist
+flow-web/.npmrc
+flow-web/.cache
+
+flow-web/tests/server/static
+flow-web/tests/server/static/upload
+
+flow-web/.local
+# local env files
+flow-web/.env.local
+flow-web/.env.*.local
+flow-web/.eslintcache
+
+# Log files
+flow-web/npm-debug.log*
+flow-web/yarn-debug.log*
+flow-web/yarn-error.log*
+pflow-web/npm-debug.log*
+
+# Editor directories and files
+flow-web/.idea
+# .vscode
+flow-web/*.suo
+flow-web/*.ntvs*
+flow-web/*.njsproj
+flow-web/*.sln
+flow-web/*.sw?
+
+flow-web/package-lock.json
+flow-web/pnpm-lock.yaml
+
+flow-web/.history
