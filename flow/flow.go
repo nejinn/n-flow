@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net/http"
 
 	"nFlow/flow/internal/config"
 	"nFlow/flow/internal/handler"
@@ -19,9 +20,14 @@ func main() {
 
 	var c config.Config
 	conf.MustLoad(*configFile, &c)
+	//logx.MustSetup(c.LogConf)
 
 	ctx := svc.NewServiceContext(c)
-	server := rest.MustNewServer(c.RestConf)
+	server := rest.MustNewServer(c.RestConf, rest.WithCustomCors(func(header http.Header) {
+		header.Add("Access-Control-Allow-Headers", "X-Requested-With")
+		header.Add("Access-Control-Allow-Headers", "ignorecanceltoken")
+	}, nil, "*"))
+
 	defer server.Stop()
 
 	handler.RegisterHandlers(server, ctx)

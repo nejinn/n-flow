@@ -1,20 +1,121 @@
 // 登录表单
 type RequestLogin {
-	Phone    string `json:"username"`
+	Account  string `json:"account"`
 	Password string `json:"password"`
 }
 
 // 登录返回数据
 type ResponseLogin {
-	Message string `json:"message"`
+	Token string `json:"token"`
+}
+
+type ResponseGetUserInfoRoleItem {
+	RoleName string `json:"roleName"`
+	Value    string `json:"value"`
+}
+
+// 获取用户信息
+type ResponseGetUserInfo {
+	Roles    []ResponseGetUserInfoRoleItem `json:"roles"`
+	UserId   int64                         `json:"userId"`
+	Username string                        `json:"username"`
+	RealName string                        `json:"realName"`
+	Avatar   string                        `json:"avatar"`
+	Desc     string                        `json:"desc"`
+}
+
+// 获取部门列表请求参数
+type RequestGetDeptList {
+	Name   string `form:"name,optional"`
+	Status int64  `form:"status,optional"`
+	Top    int64  `form:"top,optional"`
+}
+
+// 获取部门列表返回参数
+type ResponseGetDeptList {
+	Id         string `json:"id"`
+	DeptCode   string `json:"deptCode"`
+	DeptName   string `json:"deptName"`
+	DeptDesc   string `json:"deptDesc"`
+	DeptOrder  int64  `json:"deptOrder"`
+	DeptParent string `json:"deptParent"`
+	Status     int64  `json:"status"`
+	CUser      string `json:"cUser"`
+	UUser      string `json:"uUser"`
+	CTime      string `json:"cTime"`
+	UTime      string `json:"uTime"`
+}
+
+// 添加部门信息
+type RequestAddDept {
+	DeptName   string `json:"deptName"`
+	DeptDesc   string `json:"deptDesc"`
+	DeptOrder  int64  `json:"deptOrder"`
+	DeptParent string `json:"deptParent"`
+	Status     int64  `json:"status"`
+}
+
+// 修改部门信息
+type RequestUpdateDept {
+	DeptCode   string `json:"deptCode"`
+	DeptName   string `json:"deptName"`
+	DeptDesc   string `json:"deptDesc"`
+	DeptOrder  int64  `json:"deptOrder"`
+	DeptParent string `json:"deptParent"`
+	Status     int64  `json:"status"`
+}
+
+// 获取用户列表
+type RequestGetUserList {
+	UserAccount string `form:"userAccount,optional"`
+	UserName    string `form:"userName,optional"`
+	Status      string `form:"status,optional"`
+	Dept        string `form:"dept,optional"`
+	Page        int64  `form:"page,optional"`
+	PageSize    int64  `form:"pageSize,optional"`
+}
+
+// 获取用户列表
+type ResponseGetUserList {
+	UserCode    string   `json:"userCode"`
+	UserName    string   `json:"userName"`
+	UserAccount string   `json:"userAccount"`
+	UserMail    string   `json:"userMail"`
+	UserAvatar  string   `json:"userAvatar"`
+	UserRoles   []string `json:"userRoles"`
+	UserDept    string   `json:"userDept"`
+	CTime       string   `json:"cTime"`
+	UTime       string   `json:"uTime"`
 }
 
 @server(
 	group: admin
-	prefix : /admin/api/v1
-	middleware: UserLogMd
+	prefix : /nflow/admin/api/v1
 )
 service flow {
 	@handler LoginHandler
-	post /login (RequestLogin) returns (RequestLogin)
+	post /login (RequestLogin) returns (ResponseLogin)
+}
+
+@server(
+	group: admin
+	prefix : /nflow/admin/api/v1
+	jwt: Auth
+	middleware: UserPermitMd
+)
+service flow {
+	@handler GetUserInfoHandler
+	get /getUserInfo returns (ResponseGetUserInfo)
+	
+	@handler GetDeptListHandler
+	get /getDeptList (RequestGetDeptList) returns (ResponseGetDeptList)
+	
+	@handler AddDeptHandler
+	post /addDept (RequestAddDept)
+	
+	@handler UpdateDeptHandler
+	post /updateDept (RequestUpdateDept)
+	
+	@handler GetUserListHandler
+	get /getUserList (RequestGetUserList) returns (ResponseGetUserList)
 }

@@ -1,3 +1,22 @@
 Name: flow
 Host: 0.0.0.0
 Port: 8888
+Auth:
+  AccessSecret: hn-class-center
+  AccessExpire: 99999
+LogConf:
+  ServiceName: "classcenter-api"
+  Mode: "file"
+  Path: "logs"
+MaxBytes: 1073741824
+Mysql:
+  DataSource: root:7541500ne@tcp(localhost:3306)/n_flow?charset=utf8&parseTime=true
+InitData:
+  InitUser: "nFlow"
+  SuperRoleCode: "SuperAdminRole"
+  SuperRoleName: "超级管理员"
+  TopPermitCode: "topPermit"
+  TopPermitName: "第一级权限"
+  TopDeptCode: "topDept"
+  TopDeptName: "第一级部门"
+  Avatar: "https://q1.qlogo.cn/g?b=qq&nk=339449197&s=640"

@@ -2,10 +2,82 @@
 package types
 
 type RequestLogin struct {
-	Phone    string `json:"username"`
+	Account  string `json:"account"`
 	Password string `json:"password"`
 }
 
 type ResponseLogin struct {
-	Message string `json:"message"`
+	Token string `json:"token"`
+}
+
+type ResponseGetUserInfoRoleItem struct {
+	RoleName string `json:"roleName"`
+	Value    string `json:"value"`
+}
+
+type ResponseGetUserInfo struct {
+	Roles    []ResponseGetUserInfoRoleItem `json:"roles"`
+	UserId   int64                         `json:"userId"`
+	Username string                        `json:"username"`
+	RealName string                        `json:"realName"`
+	Avatar   string                        `json:"avatar"`
+	Desc     string                        `json:"desc"`
+}
+
+type RequestGetDeptList struct {
+	Name   string `form:"name,optional"`
+	Status int64  `form:"status,optional"`
+	Top    int64  `form:"top,optional"`
+}
+
+type ResponseGetDeptList struct {
+	Id         string `json:"id"`
+	DeptCode   string `json:"deptCode"`
+	DeptName   string `json:"deptName"`
+	DeptDesc   string `json:"deptDesc"`
+	DeptOrder  int64  `json:"deptOrder"`
+	DeptParent string `json:"deptParent"`
+	Status     int64  `json:"status"`
+	CUser      string `json:"cUser"`
+	UUser      string `json:"uUser"`
+	CTime      string `json:"cTime"`
+	UTime      string `json:"uTime"`
+}
+
+type RequestAddDept struct {
+	DeptName   string `json:"deptName"`
+	DeptDesc   string `json:"deptDesc"`
+	DeptOrder  int64  `json:"deptOrder"`
+	DeptParent string `json:"deptParent"`
+	Status     int64  `json:"status"`
+}
+
+type RequestUpdateDept struct {
+	DeptCode   string `json:"deptCode"`
+	DeptName   string `json:"deptName"`
+	DeptDesc   string `json:"deptDesc"`
+	DeptOrder  int64  `json:"deptOrder"`
+	DeptParent string `json:"deptParent"`
+	Status     int64  `json:"status"`
+}
+
+type RequestGetUserList struct {
+	UserAccount string `form:"userAccount,optional"`
+	UserName    string `form:"userName,optional"`
+	Status      string `form:"status,optional"`
+	Dept        string `form:"dept,optional"`
+	Page        int64  `form:"page,optional"`
+	PageSize    int64  `form:"pageSize,optional"`
+}
+
+type ResponseGetUserList struct {
+	UserCode    string   `json:"userCode"`
+	UserName    string   `json:"userName"`
+	UserAccount string   `json:"userAccount"`
+	UserMail    string   `json:"userMail"`
+	UserAvatar  string   `json:"userAvatar"`
+	UserRoles   []string `json:"userRoles"`
+	UserDept    string   `json:"userDept"`
+	CTime       string   `json:"cTime"`
+	UTime       string   `json:"uTime"`
 }
