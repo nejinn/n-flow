@@ -35,7 +35,7 @@ func (l *GetDeptListLogic) GetDeptList(req *types.RequestGetDeptList) (resp []ty
 		Top:    req.Top,
 	}
 
-	resp, err = a.GetDeptList(l.ctx, l.svcCtx.Config.InitData.TopDeptCode, l.svcCtx.Config.InitData.TopDeptName)
+	resp, err = a.GetDeptList(l.ctx, l.svcCtx.Config.InitData.InitTopDeptCode, l.svcCtx.Config.InitData.InitTopDeptName)
 
 	logx.Infof("resp: %+v, err: %v", resp, err)
 	return resp, err

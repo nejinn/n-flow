@@ -38,6 +38,7 @@ export interface DeptListItem {
   cId: number | string;
   pid: string;
   key: string;
+  title: string;
 }
 
 export type DeptListGetResultModel = BasicFetchResult<DeptListItem>;

@@ -9,6 +9,7 @@ export const columns: BasicColumn[] = [
     dataIndex: 'deptName',
     width: 160,
     align: 'left',
+    fixed: 'left',
   },
   {
     title: '排序',

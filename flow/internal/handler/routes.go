@@ -51,6 +51,36 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/getUserList",
 					Handler: admin.GetUserListHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/getRoleList",
+					Handler: admin.GetRoleListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/switchRoleStatus",
+					Handler: admin.SwitchRoleStatusHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/addRole",
+					Handler: admin.AddRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/getPermitList",
+					Handler: admin.GetPermitListHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/dragglePermit",
+					Handler: admin.DragglePermitHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/getRolePermit",
+					Handler: admin.GetRolePermitHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

@@ -20,7 +20,7 @@ const system: AppRouteModule = {
       path: 'account',
       name: 'AccountManagement',
       meta: {
-        title: t('routes.demo.system.account'),
+        title: t('routes.system.account'),
         ignoreKeepAlive: false,
       },
       component: () => import('/@/views/system/account/index.vue'),
@@ -37,44 +37,35 @@ const system: AppRouteModule = {
     //   },
     //   component: () => import('../../../views/system/account/AccountDetail.vue'),
     // },
-    // {
-    //   path: 'role',
-    //   name: 'RoleManagement',
-    //   meta: {
-    //     title: t('routes.demo.system.role'),
-    //     ignoreKeepAlive: true,
-    //   },
-    //   component: () => import('/@/views/demo/system/role/index.vue'),
-    // },
+    {
+      path: 'role',
+      name: 'RoleManagement',
+      meta: {
+        title: t('routes.system.role'),
+        ignoreKeepAlive: true,
+      },
+      component: () => import('/@/views/system/role/index.vue'),
+    },
 
-    // {
-    //   path: 'menu',
-    //   name: 'MenuManagement',
-    //   meta: {
-    //     title: t('routes.demo.system.menu'),
-    //     ignoreKeepAlive: true,
-    //   },
-    //   component: () => import('/@/views/system/menu/index.vue'),
-    // },
+    {
+      path: 'permit',
+      name: 'PermitManagement',
+      meta: {
+        title: t('routes.system.permit'),
+        ignoreKeepAlive: true,
+      },
+      component: () => import('/@/views/system/permit/index.vue'),
+    },
     {
       path: 'dept',
       name: 'DeptManagement',
       meta: {
-        title: t('routes.demo.system.dept'),
+        title: t('routes.system.dept'),
         ignoreKeepAlive: true,
         roles: [RoleEnum.ADMINSYSTEMDEPT],
       },
       component: () => import('/@/views/system/dept/index.vue'),
     },
-    // {
-    //   path: 'changePassword',
-    //   name: 'ChangePassword',
-    //   meta: {
-    //     title: t('routes.demo.system.password'),
-    //     ignoreKeepAlive: true,
-    //   },
-    //   component: () => import('/@/views/system/password/index.vue'),
-    // },
   ],
 };
 

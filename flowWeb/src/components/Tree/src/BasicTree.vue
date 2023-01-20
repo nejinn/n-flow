@@ -443,7 +443,9 @@
               tip="加载中..."
             >
               <ScrollContainer style={scrollStyle} v-show={!unref(getNotFound)}>
-                <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />
+                <div class="mt-2">
+                  <Tree {...unref(getBindValues)} showIcon={false} treeData={treeData.value} />
+                </div>
               </ScrollContainer>
               <Empty
                 v-show={unref(getNotFound)}

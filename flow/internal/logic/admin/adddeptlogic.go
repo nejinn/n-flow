@@ -41,9 +41,9 @@ func (l *AddDeptLogic) AddDept(req *types.RequestAddDept) error {
 		Status:     req.Status,
 	}
 
-	err := a.InsertData(l.ctx, userCode, l.svcCtx.Config.InitData.TopDeptCode)
+	err := a.InsertData(l.ctx, userCode, l.svcCtx.Config.InitData.InitTopDeptCode)
 
 	logx.Infof("resp: %v", err)
-	
+
 	return err
 }

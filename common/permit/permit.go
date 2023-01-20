@@ -8,6 +8,7 @@ type BasePermission struct {
 	ApiMethod       string
 	UserLogType     string
 	UserLogTypeName string
+	ParentCode      string
 }
 
 var AdminLoginPermit = BasePermission{
@@ -16,6 +17,7 @@ var AdminLoginPermit = BasePermission{
 	ApiMethod:       "POST",
 	UserLogType:     "",
 	UserLogTypeName: "",
+	ParentCode:      "",
 }
 
 var AdminGetUserInfoPermit = BasePermission{
@@ -24,6 +26,7 @@ var AdminGetUserInfoPermit = BasePermission{
 	ApiMethod:       "GET",
 	UserLogType:     "",
 	UserLogTypeName: "",
+	ParentCode:      "",
 }
 
 var AdminSystemMenuPermit = BasePermission{
@@ -32,6 +35,7 @@ var AdminSystemMenuPermit = BasePermission{
 	ApiMethod:       "",
 	UserLogType:     "",
 	UserLogTypeName: "",
+	ParentCode:      "",
 }
 
 var AdminSystemDeptMenuPermit = BasePermission{
@@ -40,6 +44,7 @@ var AdminSystemDeptMenuPermit = BasePermission{
 	ApiMethod:       "",
 	UserLogType:     "",
 	UserLogTypeName: "",
+	ParentCode:      "admin:system",
 }
 
 var AdminGetDeptListPermit = BasePermission{
@@ -48,6 +53,7 @@ var AdminGetDeptListPermit = BasePermission{
 	ApiMethod:       "GET",
 	UserLogType:     "",
 	UserLogTypeName: "",
+	ParentCode:      "admin:system:dept",
 }
 
 var AdminAddDeptPermit = BasePermission{
@@ -56,6 +62,7 @@ var AdminAddDeptPermit = BasePermission{
 	ApiMethod:       "POST",
 	UserLogType:     "",
 	UserLogTypeName: "",
+	ParentCode:      "admin:system:dept",
 }
 
 var AdminUpdateDeptPermit = BasePermission{
@@ -64,6 +71,88 @@ var AdminUpdateDeptPermit = BasePermission{
 	ApiMethod:       "POST",
 	UserLogType:     "",
 	UserLogTypeName: "",
+	ParentCode:      "admin:system:dept",
+}
+
+var AdminSystemAccountMenuPermit = BasePermission{
+	Code:            "admin:system:account",
+	ApiUrl:          "",
+	ApiMethod:       "",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system",
+}
+
+var AdminGetAccountListPermit = BasePermission{
+	Code:            "admin:system:account:getUserList",
+	ApiUrl:          "/nflow/admin/api/v1/getUserList",
+	ApiMethod:       "GET",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:account",
+}
+
+var AdminSystemRoleMenuPermit = BasePermission{
+	Code:            "admin:system:role",
+	ApiUrl:          "",
+	ApiMethod:       "",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system",
+}
+
+var AdminGetRoleListPermit = BasePermission{
+	Code:            "admin:system:role:getRoleList",
+	ApiUrl:          "/nflow/admin/api/v1/getRoleList",
+	ApiMethod:       "GET",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:role",
+}
+
+var AdminSwitchRoleStatusPermit = BasePermission{
+	Code:            "admin:system:role:switchRoleStatus",
+	ApiUrl:          "/nflow/admin/api/v1/switchRoleStatus",
+	ApiMethod:       "POST",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:role",
+}
+
+var AdminSystemPermitMenuPermit = BasePermission{
+	Code:            "admin:system:permit",
+	ApiUrl:          "",
+	ApiMethod:       "",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system",
+}
+
+var AdminGetPermitListPermit = BasePermission{
+	Code:            "admin:system:permit:getPermitList",
+	ApiUrl:          "/nflow/admin/api/v1/getPermitList",
+	ApiMethod:       "GET",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:permit",
+}
+
+var AdminDragglePermitPermit = BasePermission{
+	Code:            "admin:system:permit:dragglePermit",
+	ApiUrl:          "/nflow/admin/api/v1/dragglePermit",
+	ApiMethod:       "POST",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:permit",
+}
+
+var AdminGetRolePermitPermit = BasePermission{
+	Code:            "admin:system:role:getRolePermit",
+	ApiUrl:          "/nflow/admin/api/v1/getRolePermit",
+	ApiMethod:       "GET",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:role",
 }
 
 var permitMap map[string]BasePermission
@@ -75,6 +164,12 @@ func init() {
 	permitMap[AdminGetDeptListPermit.ApiUrl] = AdminGetDeptListPermit
 	permitMap[AdminAddDeptPermit.ApiUrl] = AdminAddDeptPermit
 	permitMap[AdminUpdateDeptPermit.ApiUrl] = AdminUpdateDeptPermit
+	permitMap[AdminGetAccountListPermit.ApiUrl] = AdminGetAccountListPermit
+	permitMap[AdminGetRoleListPermit.ApiUrl] = AdminGetRoleListPermit
+	permitMap[AdminSwitchRoleStatusPermit.ApiUrl] = AdminSwitchRoleStatusPermit
+	permitMap[AdminGetPermitListPermit.ApiUrl] = AdminGetPermitListPermit
+	permitMap[AdminDragglePermitPermit.ApiUrl] = AdminDragglePermitPermit
+	permitMap[AdminGetRolePermitPermit.ApiUrl] = AdminGetRolePermitPermit
 }
 
 // MapPermitUrlGetObj 根据Url获取对应的权限对象

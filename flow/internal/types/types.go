@@ -64,20 +64,87 @@ type RequestUpdateDept struct {
 type RequestGetUserList struct {
 	UserAccount string `form:"userAccount,optional"`
 	UserName    string `form:"userName,optional"`
-	Status      string `form:"status,optional"`
+	Status      int64  `form:"status,optional"`
 	Dept        string `form:"dept,optional"`
 	Page        int64  `form:"page,optional"`
 	PageSize    int64  `form:"pageSize,optional"`
 }
 
 type ResponseGetUserList struct {
-	UserCode    string   `json:"userCode"`
-	UserName    string   `json:"userName"`
-	UserAccount string   `json:"userAccount"`
-	UserMail    string   `json:"userMail"`
-	UserAvatar  string   `json:"userAvatar"`
-	UserRoles   []string `json:"userRoles"`
-	UserDept    string   `json:"userDept"`
-	CTime       string   `json:"cTime"`
-	UTime       string   `json:"uTime"`
+	UserCode    string `json:"userCode"`
+	UserName    string `json:"userName"`
+	UserAccount string `json:"userAccount"`
+	UserMail    string `json:"userMail"`
+	UserAvatar  string `json:"userAvatar"`
+	UserRoles   string `json:"userRoles"`
+	UserDept    string `json:"userDept"`
+	Status      int64  `json:"status"`
+	CTime       string `json:"cTime"`
+	UTime       string `json:"uTime"`
+}
+
+type ResponseGetUserListRes struct {
+	Items []ResponseGetUserList `json:"items"`
+	Total int64                 `json:"total"`
+}
+
+type RequestGetRoleList struct {
+	RoleName string `form:"roleName,optional"`
+	Status   int64  `form:"status,optional"`
+	Page     int64  `form:"page,optional"`
+	PageSize int64  `form:"pageSize,optional"`
+}
+
+type ResponseGetRoleList struct {
+	RoleCode  string `json:"roleCode"`
+	RoleDesc  string `json:"roleDesc"`
+	RoleName  string `json:"roleName"`
+	Status    int64  `json:"status"`
+	RoleOrder int64  `json:"roleOrder"`
+	CTime     string `json:"cTime"`
+	UTime     string `json:"uTime"`
+	CUser     string `json:"cUser"`
+	UUser     string `json:"uUser"`
+}
+
+type ResponseGetRoleListRes struct {
+	Items []ResponseGetRoleList `json:"items"`
+	Total int64                 `json:"total"`
+}
+
+type RequestSwitchStatus struct {
+	Code   string `json:"code"`
+	Status int64  `json:"status"`
+}
+
+type RequestAddRole struct {
+	RoleName  string   `json:"roleName"`
+	RoleDesc  string   `json:"roleDesc"`
+	RoleOrder int64    `json:"roleOrder"`
+	Status    int64    `json:"status"`
+	Permit    []string `json:"permit"`
+}
+
+type ResponseGetPermitList struct {
+	PermitCode   string `json:"permitCode"`
+	PermitName   string `json:"permitName"`
+	PermitDesc   string `json:"permitDesc"`
+	PermitOrder  int64  `json:"permitOrder"`
+	PermitMethod string `json:"permitMethod"`
+	PermitType   int64  `json:"permitType"`
+	PermitUrl    string `json:"permitUrl"`
+	PermitParent string `json:"permitParent"`
+}
+
+type RequestDragglePermit struct {
+	Code  string `json:"code"`
+	PCode string `json:"pCode,optional"`
+}
+
+type RequestGetRolePermit struct {
+	Code string `form:"code"`
+}
+
+type ResponseGetRolePermit struct {
+	Code []string `json:"code"`
 }

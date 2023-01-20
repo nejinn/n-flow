@@ -1,3 +1,5 @@
+import { Tag } from 'ant-design-vue';
+import { h } from 'vue';
 import { getAllRoleList } from '/@/api/demo/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
@@ -5,44 +7,66 @@ import { FormSchema } from '/@/components/Table';
 export const columns: BasicColumn[] = [
   {
     title: '用户名',
-    dataIndex: 'account',
+    dataIndex: 'userAccount',
     width: 120,
+    fixed: 'left',
   },
   {
     title: '昵称',
-    dataIndex: 'nickname',
+    dataIndex: 'userName',
+    width: 120,
+  },
+  {
+    title: '头像',
+    dataIndex: 'userAvatar',
     width: 120,
   },
   {
     title: '邮箱',
-    dataIndex: 'email',
+    dataIndex: 'userMail',
     width: 120,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createTime',
-    width: 180,
+    title: '状态',
+    dataIndex: 'status',
+    width: 80,
+    customRender: ({ record }) => {
+      const status = record.status;
+      const enable = ~~status === 1;
+      const color = enable ? 'green' : 'red';
+      const text = enable ? '启用' : '停用';
+      return h(Tag, { color: color }, () => text);
+    },
   },
   {
     title: '角色',
-    dataIndex: 'role',
-    width: 200,
+    dataIndex: 'userRoles',
   },
   {
-    title: '备注',
-    dataIndex: 'remark',
+    title: '部门',
+    dataIndex: 'userDept',
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'cTime',
+    width: 180,
+  },
+  {
+    title: '更新时间',
+    dataIndex: 'uTime',
+    width: 180,
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'account',
+    field: 'userAccount',
     label: '用户名',
     component: 'Input',
     colProps: { span: 8 },
   },
   {
-    field: 'nickname',
+    field: 'userName',
     label: '昵称',
     component: 'Input',
     colProps: { span: 8 },
@@ -51,7 +75,7 @@ export const searchFormSchema: FormSchema[] = [
 
 export const accountFormSchema: FormSchema[] = [
   {
-    field: 'account',
+    field: 'userAccount',
     label: '用户名',
     component: 'Input',
     helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],

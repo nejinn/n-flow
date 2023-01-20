@@ -17,13 +17,14 @@ type Config struct {
 		DataSource string
 	}
 	InitData struct {
-		InitUser      string
-		SuperRoleCode string
-		SuperRoleName string
-		TopPermitCode string
-		TopPermitName string
-		TopDeptCode   string
-		TopDeptName   string
-		Avatar        string
+		InitUserCode      string // 初始化用户code
+		InitUserName      string // 初始化用户name
+		InitSuperRoleCode string // 初始化超级管理员角色code
+		InitSuperRoleName string // 初始化超级管理员角色name
+		InitTopPermitCode string // 初始化第一级权限code
+		InitTopPermitName string // 初始化第一级权限name
+		InitTopDeptCode   string // 初始化第一级部门code
+		InitTopDeptName   string // 初始化第一级部门name
+		InitAvatar        string //初始化头像url
 	}
 }

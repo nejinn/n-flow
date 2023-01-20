@@ -26,7 +26,7 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 
 func (l *GetUserInfoLogic) GetUserInfo() (resp *types.ResponseGetUserInfo, err error) {
 
-	avatar := l.svcCtx.Config.InitData.Avatar
+	avatar := l.svcCtx.Config.InitData.InitAvatar
 	var a getUserInfo.NFlowGetUserInfo
 	a = getUserInfo.NFlowGetUserInfoParams{UserCode: l.ctx.Value("userCode").(string)}
 	res, err := a.GetUserInfo(l.ctx, avatar)

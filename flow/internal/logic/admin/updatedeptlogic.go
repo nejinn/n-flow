@@ -41,7 +41,7 @@ func (l *UpdateDeptLogic) UpdateDept(req *types.RequestUpdateDept) error {
 		Status:     req.Status,
 	}
 
-	err := a.UpdateData(l.ctx, userCode, l.svcCtx.Config.InitData.TopDeptCode)
+	err := a.UpdateData(l.ctx, userCode, l.svcCtx.Config.InitData.InitTopDeptCode)
 
 	logx.Infof("resp: %v", err)
 
