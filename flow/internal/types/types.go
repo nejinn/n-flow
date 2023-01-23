@@ -71,16 +71,17 @@ type RequestGetUserList struct {
 }
 
 type ResponseGetUserList struct {
-	UserCode    string `json:"userCode"`
-	UserName    string `json:"userName"`
-	UserAccount string `json:"userAccount"`
-	UserMail    string `json:"userMail"`
-	UserAvatar  string `json:"userAvatar"`
-	UserRoles   string `json:"userRoles"`
-	UserDept    string `json:"userDept"`
-	Status      int64  `json:"status"`
-	CTime       string `json:"cTime"`
-	UTime       string `json:"uTime"`
+	UserCode      string `json:"userCode"`
+	UserName      string `json:"userName"`
+	UserAccount   string `json:"userAccount"`
+	UserMail      string `json:"userMail"`
+	UserAvatar    string `json:"userAvatar"`
+	UserRoles     string `json:"userRoles"`
+	UserRoleCodes string `json:"userRoleCodes"`
+	UserDept      string `json:"userDept"`
+	Status        int64  `json:"status"`
+	CTime         string `json:"cTime"`
+	UTime         string `json:"uTime"`
 }
 
 type ResponseGetUserListRes struct {
@@ -147,4 +148,50 @@ type RequestGetRolePermit struct {
 
 type ResponseGetRolePermit struct {
 	Code []string `json:"code"`
+}
+
+type RequestUpdateRole struct {
+	RoleName  string   `json:"roleName"`
+	RoleCode  string   `json:"roleCode"`
+	RoleDesc  string   `json:"roleDesc"`
+	RoleOrder int64    `json:"roleOrder"`
+	Status    int64    `json:"status"`
+	Permit    []string `json:"permit"`
+}
+
+type RequestCheckUserAccount struct {
+	Account string `json:"account"`
+}
+
+type ResponseCheckUserAccount struct {
+	Code int64 `json:"code"`
+}
+
+type RequestKeyWord struct {
+	Category string `form:"category"`
+	Word     string `form:"word,optional"`
+}
+
+type ResponseKeyWord struct {
+	Resp string `json:"resp"`
+}
+
+type RequestAddAccount struct {
+	UserAccount string   `json:"userAccount"`
+	UserName    string   `json:"userName"`
+	Password    string   `json:"password"`
+	Status      int64    `json:"status"`
+	UserRoles   []string `json:"userRoles"`
+	UserDept    string   `json:"userDept"`
+	UserMail    string   `json:"userMail"`
+}
+
+type RequestUpdateAccount struct {
+	UserCode    string   `json:"userCode"`
+	UserAccount string   `json:"userAccount"`
+	UserName    string   `json:"userName"`
+	Status      int64    `json:"status"`
+	UserRoles   []string `json:"userRoles"`
+	UserDept    string   `json:"userDept"`
+	UserMail    string   `json:"userMail"`
 }

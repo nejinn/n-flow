@@ -9,6 +9,7 @@
         clickRowToExpand
         :tree-data="treeData"
         draggable
+        :loading="treeLoading"
         @drop="onDrop"
       >
         <template #title="item">
@@ -97,7 +98,7 @@
         }
       }
 
-      return { treeData, onDrop };
+      return { treeData, onDrop, treeLoading };
     },
   });
 </script>

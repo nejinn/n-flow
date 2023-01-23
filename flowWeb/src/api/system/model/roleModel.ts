@@ -18,3 +18,24 @@ export type GetRoleListItem = {
 };
 
 export type GetRoleListResultModel = BasicFetchResult<GetRoleListItem>;
+
+export type AddRoleParams = {
+  roleName: string;
+  roleDesc: string;
+  roleOrder: string;
+  status: string;
+  permit: string[];
+};
+
+export type GetRolePermitParams = {
+  code: string;
+};
+
+export type UpdateRoleParams = {
+  roleCode: string;
+  roleName: string;
+  roleDesc: string;
+  roleOrder: string;
+  status: string;
+  permit: string[];
+};

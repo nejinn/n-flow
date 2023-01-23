@@ -37,3 +37,7 @@ func NewErrCode(errCode uint32) *CodeError {
 func NewErrMsg(errMsg string) *CodeError {
 	return &CodeError{errCode: SERVER_COMMON_ERROR, errMsg: errMsg}
 }
+
+func CodeErrMsg(errCode uint32) *CodeError {
+	return &CodeError{errCode: errCode, errMsg: MapErrMsg(errCode)}
+}

@@ -77,16 +77,17 @@ type RequestGetUserList {
 
 // 获取用户列表
 type ResponseGetUserList {
-	UserCode    string `json:"userCode"`
-	UserName    string `json:"userName"`
-	UserAccount string `json:"userAccount"`
-	UserMail    string `json:"userMail"`
-	UserAvatar  string `json:"userAvatar"`
-	UserRoles   string `json:"userRoles"`
-	UserDept    string `json:"userDept"`
-	Status      int64  `json:"status"`
-	CTime       string `json:"cTime"`
-	UTime       string `json:"uTime"`
+	UserCode      string `json:"userCode"`
+	UserName      string `json:"userName"`
+	UserAccount   string `json:"userAccount"`
+	UserMail      string `json:"userMail"`
+	UserAvatar    string `json:"userAvatar"`
+	UserRoles     string `json:"userRoles"`
+	UserRoleCodes string `json:"userRoleCodes"`
+	UserDept      string `json:"userDept"`
+	Status        int64  `json:"status"`
+	CTime         string `json:"cTime"`
+	UTime         string `json:"uTime"`
 }
 
 // 获取用户列表
@@ -165,6 +166,59 @@ type ResponseGetRolePermit {
 	Code []string `json:"code"`
 }
 
+// 修改角色
+type RequestUpdateRole {
+	RoleName  string   `json:"roleName"`
+	RoleCode  string   `json:"roleCode"`
+	RoleDesc  string   `json:"roleDesc"`
+	RoleOrder int64    `json:"roleOrder"`
+	Status    int64    `json:"status"`
+	Permit    []string `json:"permit"`
+}
+
+// 检查用户名是否存在
+type RequestCheckUserAccount {
+	Account string `json:"account"`
+}
+
+// 检查用户名是否存在
+type ResponseCheckUserAccount {
+	Code int64 `json:"code"`
+}
+
+// 关键词搜索接口
+type RequestKeyWord {
+	Category string `form:"category"`
+	Word     string `form:"word,optional"`
+}
+
+// 关键词搜索接口
+type ResponseKeyWord {
+	Resp string `json:"resp"`
+}
+
+// 添加用户
+type RequestAddAccount {
+	UserAccount string   `json:"userAccount"`
+	UserName    string   `json:"userName"`
+	Password    string   `json:"password"`
+	Status      int64    `json:"status"`
+	UserRoles   []string `json:"userRoles"`
+	UserDept    string   `json:"userDept"`
+	UserMail    string   `json:"userMail"`
+}
+
+// 修改用户
+type RequestUpdateAccount {
+	UserCode    string   `json:"userCode"`
+	UserAccount string   `json:"userAccount"`
+	UserName    string   `json:"userName"`
+	Status      int64    `json:"status"`
+	UserRoles   []string `json:"userRoles"`
+	UserDept    string   `json:"userDept"`
+	UserMail    string   `json:"userMail"`
+}
+
 @server(
 	group: admin
 	prefix : /nflow/admin/api/v1
@@ -213,4 +267,20 @@ service flow {
 	
 	@handler GetRolePermitHandler
 	get /getRolePermit (RequestGetRolePermit) returns (ResponseGetRolePermit)
+	
+	@handler UpdateRoleHandler
+	post /updateRole (RequestUpdateRole)
+	
+	@handler CheckUserAccountHandler
+	post /checkUserAccount (RequestCheckUserAccount) returns (ResponseCheckUserAccount)
+	
+	@handler KeyWordHandler
+	get /keyWord (RequestKeyWord) returns (ResponseKeyWord)
+	
+	@handler AddAccountHandler
+	post /addAccount (RequestAddAccount)
+	
+	@handler UpdateAccountHandler
+	post /updateAccount (RequestUpdateAccount)
+	
 }

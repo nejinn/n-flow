@@ -10,36 +10,36 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type AddRoleLogic struct {
+type UpdateRoleLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewAddRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AddRoleLogic {
-	return &AddRoleLogic{
+func NewUpdateRoleLogic(ctx context.Context, svcCtx *svc.ServiceContext) *UpdateRoleLogic {
+	return &UpdateRoleLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *AddRoleLogic) AddRole(req *types.RequestAddRole) error {
+func (l *UpdateRoleLogic) UpdateRole(req *types.RequestUpdateRole) error {
 	// todo: add your logic here and delete this line
 
 	logx.Infof("req: %+v", req)
 
-	var a role.NFlowAddRole
-
-	a = role.NFlowAddRoleParams{
-		RoleOrder: req.RoleOrder,
+	var a role.NFlowUpdateRole
+	a = role.NFlowUpdateRoleParams{
 		RoleName:  req.RoleName,
+		RoleCode:  req.RoleCode,
 		RoleDesc:  req.RoleDesc,
+		RoleOrder: req.RoleOrder,
 		Status:    req.Status,
 		Permit:    req.Permit,
 	}
 
-	err := a.InsertData(l.ctx)
+	err := a.UpdateData(l.ctx)
 
 	logx.Infof("err: %v", err)
 

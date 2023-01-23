@@ -12,6 +12,10 @@ func GenerateCode(category int) (resp string) {
 	switch category {
 	case 1:
 		resp = fmt.Sprintf("dept_code_%s", guidStr)
+	case 2:
+		resp = fmt.Sprintf("role_code_%s", guidStr)
+	case 3:
+		resp = fmt.Sprintf("user_code_%s", guidStr)
 	}
 	return resp
 }

@@ -1,8 +1,9 @@
 import { Tag } from 'ant-design-vue';
 import { h } from 'vue';
-import { getAllRoleList } from '/@/api/demo/system';
+// import { keyWordApi } from '/@/api/sys/keyWord';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { checkUserAccountApi } from '/@/api/system/account';
 
 export const columns: BasicColumn[] = [
   {
@@ -75,77 +76,134 @@ export const searchFormSchema: FormSchema[] = [
 
 export const accountFormSchema: FormSchema[] = [
   {
+    field: 'initUserAccount',
+    label: '用户名',
+    component: 'Input',
+    show: false,
+  },
+  {
+    field: 'userCode',
+    label: '用户编码',
+    component: 'Input',
+    show: false,
+  },
+  {
     field: 'userAccount',
     label: '用户名',
     component: 'Input',
-    helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
-    rules: [
-      {
-        required: true,
-        message: '请输入用户名',
-      },
-      // {
-      //   validator(_, value) {
-      //     return new Promise((resolve, reject) => {
-      //       isAccountExist(value)
-      //         .then(() => resolve())
-      //         .catch((err) => {
-      //           reject(err.message || '验证失败');
-      //         });
-      //     });
-      //   },
-      // },
-    ],
+    colProps: { span: 24 },
+    required: true,
+    helpMessage: ['用户名可以用来作为登录账号'],
+    dynamicRules: ({ values }) => {
+      return [
+        {
+          required: true,
+          message: '请输入用户名',
+        },
+        {
+          validator(_, value) {
+            return new Promise((resolve, reject) => {
+              if (!values.initUserAccount || values.initUserAccount === value) {
+                resolve();
+              } else {
+                checkUserAccountApi({ account: value })
+                  .then((res) => {
+                    if (res.code === 1) {
+                      reject('账号已存在');
+                    }
+                    resolve();
+                  })
+                  .catch((err) => {
+                    reject(err.message || '验证失败');
+                  });
+              }
+            });
+          },
+        },
+      ];
+    },
   },
   {
-    field: 'pwd',
+    field: 'userName',
+    label: '昵称',
+    component: 'Input',
+    required: true,
+    colProps: { span: 24 },
+  },
+  {
+    field: 'password',
     label: '密码',
     component: 'InputPassword',
     required: true,
     ifShow: false,
+    colProps: { span: 24 },
+  },
+  {
+    field: 'status',
+    label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: 1,
+    required: true,
+    componentProps: {
+      options: [
+        { label: '启用', value: 1 },
+        { label: '停用', value: 2 },
+      ],
+    },
   },
   {
     label: '角色',
-    field: 'role',
-    component: 'ApiSelect',
-    componentProps: {
-      api: getAllRoleList,
-      labelField: 'roleName',
-      valueField: 'roleValue',
-    },
+    field: 'userRoles',
+    component: 'Input',
+    slot: 'role',
+    colProps: { span: 24 },
     required: true,
   },
   {
-    field: 'dept',
+    field: 'userDept',
     label: '所属部门',
+    // component: 'Input',
     component: 'TreeSelect',
     componentProps: {
-      replaceFields: {
-        title: 'deptName',
-        key: 'id',
-        value: 'id',
+      fieldNames: {
+        label: 'title',
+        key: 'key',
+        value: 'value',
       },
       getPopupContainer: () => document.body,
     },
     required: true,
-  },
-  {
-    field: 'nickname',
-    label: '昵称',
-    component: 'Input',
-    required: true,
+    colProps: { span: 24 },
+    // slot: 'dept',
   },
 
   {
     label: '邮箱',
-    field: 'email',
+    field: 'userMail',
     component: 'Input',
     required: true,
-  },
-
-  {
-    label: '备注',
-    field: 'remark',
-    component: 'InputTextArea',
+    colProps: { span: 24 },
+    dynamicRules: () => {
+      return [
+        {
+          required: true,
+          message: '请输入邮箱',
+        },
+        {
+          validator(_, value) {
+            if (!value) {
+              return Promise.reject('邮箱不能为空');
+            }
+            const pwdRegExp = new RegExp(
+              '^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$',
+            );
+            if (pwdRegExp.test(value) === false) {
+              return Promise.reject('邮箱格式不对');
+            }
+            return Promise.resolve();
+          },
+        },
+      ];
+    },
   },
 ];

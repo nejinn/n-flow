@@ -43,6 +43,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.role'),
         ignoreKeepAlive: true,
+        roles: [RoleEnum.ADMINSYSTEMROLEGETROLELIST],
       },
       component: () => import('/@/views/system/role/index.vue'),
     },
@@ -53,6 +54,7 @@ const system: AppRouteModule = {
       meta: {
         title: t('routes.system.permit'),
         ignoreKeepAlive: true,
+        roles: [RoleEnum.ADMINSYSTEMPERMIT],
       },
       component: () => import('/@/views/system/permit/index.vue'),
     },

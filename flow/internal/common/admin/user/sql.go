@@ -1,4 +1,4 @@
-package getUserInfo
+package user
 
 // QueryBaseInfoSql 获取用户基本信息
 const QueryBaseInfoSql = `
@@ -20,4 +20,9 @@ const QueryRoleSql = `
 	where nfp.is_del = 1
 	  and nfr.is_del = 1
 	  and nfur.user_code = ?
+`
+
+// CheckUserAccountSql 检查用户账号是否存在
+const CheckUserAccountSql = `
+	select count(id) from n_flow_user where user_account = ?
 `

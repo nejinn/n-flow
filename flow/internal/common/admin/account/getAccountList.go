@@ -4,6 +4,7 @@ import (
 	"context"
 	"gitee.com/chunanyong/zorm"
 	"github.com/zeromicro/go-zero/core/logx"
+	"nFlow/common/page"
 	"nFlow/flow/internal/types"
 	"strings"
 )
@@ -48,15 +49,27 @@ func (t NFlowGetAccountListParams) GetUserBaseInfoList(c context.Context) (resp 
 
 	finder.Append(" group by nfu.user_code order by nfu.id desc")
 
-	page := zorm.Page{
-		PageNo:   int(t.Page),
-		PageSize: int(t.PageSize),
+	PageNo := int(t.Page)
+	PageSize := int(t.PageSize)
+
+	if PageNo == 0 {
+		PageNo = page.Page
 	}
+
+	if PageSize == 0 {
+		PageSize = page.PageSize
+	}
+
+	pageObj := zorm.Page{
+		PageNo:   PageNo,
+		PageSize: PageSize,
+	}
+
 	var count int64
 	_, _ = zorm.QueryRow(c, countFinder, &count)
 
 	var res []types.ResponseGetUserList
-	err = zorm.Query(c, finder, &res, &page)
+	err = zorm.Query(c, finder, &res, &pageObj)
 
 	logx.Infof("err: %v", err)
 

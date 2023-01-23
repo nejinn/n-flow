@@ -81,6 +81,31 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 					Path:    "/getRolePermit",
 					Handler: admin.GetRolePermitHandler(serverCtx),
 				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/updateRole",
+					Handler: admin.UpdateRoleHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/checkUserAccount",
+					Handler: admin.CheckUserAccountHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodGet,
+					Path:    "/keyWord",
+					Handler: admin.KeyWordHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/addAccount",
+					Handler: admin.AddAccountHandler(serverCtx),
+				},
+				{
+					Method:  http.MethodPost,
+					Path:    "/updateAccount",
+					Handler: admin.UpdateAccountHandler(serverCtx),
+				},
 			}...,
 		),
 		rest.WithJwt(serverCtx.Config.Auth.AccessSecret),

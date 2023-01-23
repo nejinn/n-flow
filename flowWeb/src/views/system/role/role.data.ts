@@ -4,8 +4,9 @@ import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
 import { SwitchRoleStatusApi } from '/@/api/system/role';
 import { useMessage } from '/@/hooks/web/useMessage';
-import { isArray } from '/@/utils/is';
-
+import { usePermission } from '/@/hooks/web/usePermission';
+import { RoleEnum } from '/@/enums/roleEnum';
+const { hasPermission } = usePermission();
 export const columns: BasicColumn[] = [
   {
     title: '角色名称',
@@ -35,6 +36,7 @@ export const columns: BasicColumn[] = [
         checkedChildren: '已启用',
         unCheckedChildren: '已禁用',
         loading: record.pendingStatus,
+        disabled: !hasPermission([RoleEnum.ADMINSYSTEMYROLESWITCHROLESTATUS]),
         onChange(checked: boolean) {
           record.pendingStatus = true;
           const newStatus = checked ? 1 : 2;
@@ -165,7 +167,7 @@ export const formSchema: FormSchema[] = [
         {
           required: true,
           validator: (_, value) => {
-            if (isArray(value) && value.length === 0) {
+            if (!value || value.length === 0) {
               return Promise.reject('权限不能为空');
             }
             return Promise.resolve();

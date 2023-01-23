@@ -35,3 +35,40 @@ const GetRolePermitSql = `
 	from n_flow_permission_role
 	where role_code = ?
 `
+
+// InsertRoleSql 添加角色Sql
+const InsertRoleSql = `
+	insert into n_flow_role(role_code,
+							role_name,
+							role_desc,
+							role_order,
+							is_del,
+							c_user,
+							u_user)
+	values (?,?,?,?,?,?,?)
+`
+
+// InsertRolePermitSql 添加角色权限
+const InsertRolePermitSql = `
+	insert into n_flow_permission_role(permit_code,
+									   role_code,
+									   c_user,
+									   u_user)
+	values
+`
+
+// UpdateRoleSql 修改角色sql
+const UpdateRoleSql = `
+	update n_flow_role
+	set role_name  = ?,
+		role_desc  = ?,
+		role_order = ?,
+		is_del     = ?,
+		u_user=?
+	where role_code = ? 
+`
+
+// DelRolePermitSql 删除角色所有权限
+const DelRolePermitSql = `
+delete from n_flow_permission_role where role_code = ?
+`

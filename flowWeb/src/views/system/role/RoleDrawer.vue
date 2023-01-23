@@ -10,14 +10,13 @@
     <BasicForm @register="registerForm">
       <template #permit>
         <BasicTree
-          v-if="treeData.length > 0"
+          toolbar
           :treeData="treeData"
           :fieldNames="{ title: 'title', key: 'key' }"
           :checked-keys="checkedKeys"
           checkable
           title="权限分配"
           @check="handleCheck"
-          defaultExpandAll
         />
       </template>
     </BasicForm>
@@ -29,9 +28,15 @@
   import { formSchema } from './role.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
-  import { getPermitListApi, getRolePermitApi } from '/@/api/system/permit';
-  import { GetPermitListItem, GetRolePermitParams } from '/@/api/system/model/permitModel';
+  import { getPermitListApi } from '/@/api/system/permit';
+  import { GetPermitListItem } from '/@/api/system/model/permitModel';
   import { listToTree } from '/@/utils/helper/treeHelper';
+  import {
+    AddRoleParams,
+    GetRolePermitParams,
+    UpdateRoleParams,
+  } from '/@/api/system/model/roleModel';
+  import { addRoleApi, getRolePermitApi, updateRoleApi } from '/@/api/system/role';
   export default defineComponent({
     name: 'RoleDrawer',
     components: { BasicDrawer, BasicForm, BasicTree },
@@ -55,15 +60,6 @@
         resetFields();
         setDrawerProps({ confirmLoading: false, loading: true });
         // 需要在setFieldsValue之前先填充treeData，否则Tree组件可能会报key not exist警告
-        // if (unref(treeData).length === 0) {
-        //   treeData.value = (await getMenuList()) as any as TreeItem[];
-        // }
-        // isUpdate.value = !!data?.isUpdate;
-        // if (unref(isUpdate)) {
-        //   setFieldsValue({
-        //     ...data.record,
-        //   });
-        // }
         try {
           let res = (await getPermitListApi()) as unknown as GetPermitListItem[];
           const permitTreeConfig = res.map((e: GetPermitListItem) => {
@@ -76,19 +72,18 @@
           treeData.value = listToTree(permitTreeConfig) as any as TreeItem[];
           isUpdate.value = !!data?.isUpdate;
           if (unref(isUpdate)) {
-            setFieldsValue({
-              ...data.record,
-              isUpdate: isUpdate.value,
-            });
             currentCode.value = data.record.roleCode;
             const params: GetRolePermitParams = {
               code: data.record.roleCode,
             };
             const res = await getRolePermitApi(params);
-            console.log(res);
             treeCheckedKey.value = res.code || [];
             getLastKey(treeData.value);
-            setFieldsValue({ permit: checkedKeys.value });
+            setFieldsValue({
+              ...data.record,
+              isUpdate: isUpdate.value,
+              permit: checkedKeys.value,
+            });
           }
         } finally {
           setDrawerProps({ loading: false });
@@ -118,14 +113,35 @@
         try {
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
-          // TODO custom api
-          console.log(values);
+          if (unref(isUpdate)) {
+            const params: UpdateRoleParams = {
+              roleCode: values.roleCode,
+              roleName: values.roleName,
+              roleDesc: values.roleDesc,
+              roleOrder: values.roleOrder,
+              status: values.status,
+              permit: values.permit,
+            };
+            await updateRoleApi(params);
+          } else {
+            const params: AddRoleParams = {
+              roleName: values.roleName,
+              roleDesc: values.roleDesc,
+              roleOrder: values.roleOrder,
+              status: values.status,
+              permit: values.permit,
+            };
+            await addRoleApi(params);
+          }
+          treeData.value = [];
+          checkedKeys.value = [];
           closeDrawer();
           emit('success');
         } finally {
           setDrawerProps({ confirmLoading: false });
         }
       }
+
       return {
         registerDrawer,
         registerForm,

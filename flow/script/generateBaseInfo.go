@@ -11,7 +11,7 @@ import (
 	"nFlow/flow/internal/config"
 )
 
-//var configFile = flag.String("f", "../../etc/flow.yaml", "the config file")
+var configFile = flag.String("f", "../../etc/flow.yaml", "the config file")
 
 func main() {
 	var configFile = flag.String("f", "../ect/flow.yaml", "the config file")

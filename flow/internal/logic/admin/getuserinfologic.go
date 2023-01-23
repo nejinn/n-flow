@@ -2,8 +2,7 @@ package admin
 
 import (
 	"context"
-	"nFlow/flow/internal/common/admin/getUserInfo"
-
+	"nFlow/flow/internal/common/admin/user"
 	"nFlow/flow/internal/svc"
 	"nFlow/flow/internal/types"
 
@@ -27,8 +26,8 @@ func NewGetUserInfoLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUs
 func (l *GetUserInfoLogic) GetUserInfo() (resp *types.ResponseGetUserInfo, err error) {
 
 	avatar := l.svcCtx.Config.InitData.InitAvatar
-	var a getUserInfo.NFlowGetUserInfo
-	a = getUserInfo.NFlowGetUserInfoParams{UserCode: l.ctx.Value("userCode").(string)}
+	var a user.NFlowGetUserInfo
+	a = user.NFlowGetUserInfoParams{UserCode: l.ctx.Value("userCode").(string)}
 	res, err := a.GetUserInfo(l.ctx, avatar)
 
 	logx.Infof("resp: %+v", res)

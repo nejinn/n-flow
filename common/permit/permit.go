@@ -20,6 +20,15 @@ var AdminLoginPermit = BasePermission{
 	ParentCode:      "",
 }
 
+var AdminKeyWordPermit = BasePermission{
+	Code:            "admin:keyWord",
+	ApiUrl:          "/nflow/admin/api/v1/keyWord",
+	ApiMethod:       "GET",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "",
+}
+
 var AdminGetUserInfoPermit = BasePermission{
 	Code:            "admin:getUserInfo",
 	ApiUrl:          "/nflow/admin/api/v1/getUserInfo",
@@ -155,6 +164,51 @@ var AdminGetRolePermitPermit = BasePermission{
 	ParentCode:      "admin:system:role",
 }
 
+var AdminAddRolePermit = BasePermission{
+	Code:            "admin:system:role:addRole",
+	ApiUrl:          "/nflow/admin/api/v1/addRole",
+	ApiMethod:       "POST",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:role",
+}
+
+var AdminUpdateRolePermit = BasePermission{
+	Code:            "admin:system:role:updateRole",
+	ApiUrl:          "/nflow/admin/api/v1/updateRole",
+	ApiMethod:       "POST",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:role",
+}
+
+var AdminCheckUserAccountPermit = BasePermission{
+	Code:            "admin:system:account:checkUserAccount",
+	ApiUrl:          "/nflow/admin/api/v1/checkUserAccount",
+	ApiMethod:       "POST",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:account",
+}
+
+var AdminAddAccountPermit = BasePermission{
+	Code:            "admin:system:account:addAccount",
+	ApiUrl:          "/nflow/admin/api/v1/addAccount",
+	ApiMethod:       "POST",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:account",
+}
+
+var AdminUpdateAccountPermit = BasePermission{
+	Code:            "admin:system:account:updateAccount",
+	ApiUrl:          "/nflow/admin/api/v1/updateAccount",
+	ApiMethod:       "POST",
+	UserLogType:     "",
+	UserLogTypeName: "",
+	ParentCode:      "admin:system:account",
+}
+
 var permitMap map[string]BasePermission
 
 func init() {
@@ -170,6 +224,13 @@ func init() {
 	permitMap[AdminGetPermitListPermit.ApiUrl] = AdminGetPermitListPermit
 	permitMap[AdminDragglePermitPermit.ApiUrl] = AdminDragglePermitPermit
 	permitMap[AdminGetRolePermitPermit.ApiUrl] = AdminGetRolePermitPermit
+	permitMap[AdminAddRolePermit.ApiUrl] = AdminAddRolePermit
+	permitMap[AdminUpdateRolePermit.ApiUrl] = AdminUpdateRolePermit
+	permitMap[AdminCheckUserAccountPermit.ApiUrl] = AdminCheckUserAccountPermit
+	permitMap[AdminKeyWordPermit.ApiUrl] = AdminKeyWordPermit
+	permitMap[AdminAddAccountPermit.ApiUrl] = AdminAddAccountPermit
+	permitMap[AdminUpdateAccountPermit.ApiUrl] = AdminUpdateAccountPermit
+
 }
 
 // MapPermitUrlGetObj 根据Url获取对应的权限对象

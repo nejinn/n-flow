@@ -18,7 +18,3 @@ export type DraggablePermitParams = {
   code: string;
   pCode: string;
 };
-
-export type GetRolePermitParams = {
-  code: string;
-};

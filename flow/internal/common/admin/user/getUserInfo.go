@@ -1,4 +1,4 @@
-package getUserInfo
+package user
 
 import (
 	"context"

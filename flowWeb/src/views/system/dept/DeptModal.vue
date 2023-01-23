@@ -69,7 +69,6 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           // TODO custom api
-          console.log(values);
           if (unref(isUpdate)) {
             const params: updateDeptParams = {
               ...values,
